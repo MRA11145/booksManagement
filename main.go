@@ -14,6 +14,9 @@ func main() {
 	database.Init()
 	r := mux.NewRouter()
 
+	fs := http.FileServer(http.Dir("./web/static/"))
+	r.PathPrefix("/web/static/").Handler(http.StripPrefix("/web/static/", fs))
+
 	r.HandleFunc("/api/books", controller.GetBooks).Methods("GET")
 	r.HandleFunc("/api/books/{id}", controller.GetBook).Methods("GET")
 	r.HandleFunc("/api/books", controller.CreateBooks).Methods("POST")

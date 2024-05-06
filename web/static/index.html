@@ -1,8 +1,32 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Index Page</title>
-    </head>
-    <body>
-        <h2>Index page</h2>
-    </body>
+
+<head>
+    <title>Index Page</title>
+    <script>
+        // Function to make an AJAX request to the API endpoint and display the response
+        function fetchData() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/books", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Parse the JSON response
+                    var books = JSON.parse(xhr.responseText);
+                    // Display the response on the page
+                    document.getElementById("response").innerHTML = JSON.stringify(books, null, 2);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+
+<body>
+    <h3>Welcome to Static page</h3>
+    <!-- Add a button to fetch data from the API -->
+    <button onclick="fetchData()">Fetch Books</button>
+    <!-- Container to display the API response -->
+    <pre id="response"></pre>
+</body>
+
 </html>
